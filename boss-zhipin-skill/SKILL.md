@@ -63,13 +63,8 @@ playwright-cli install-browser --browser chrome
 首次使用或登录态过期时，需要手动登录。
 
 ```bash
-# 关闭旧会话（如果有的话）
 playwright-cli -s=boss close
-
-# 以 headed 模式打开浏览器，让用户手动登录
 playwright-cli -s=boss open "https://www.zhipin.com/web/user/?ka=header-login" --headed --browser=chrome --persistent
-
-# 用户登录完成后，保存登录态
 playwright-cli -s=boss state-save auth/zhipin-auth.json
 ```
 
@@ -80,7 +75,6 @@ playwright-cli -s=boss state-save auth/zhipin-auth.json
 每次操作前确保浏览器会话存在且已登录：
 
 ```bash
-# 打开浏览器并加载登录态
 playwright-cli -s=boss open "https://www.zhipin.com/web/chat/index" --browser=chrome --persistent
 playwright-cli -s=boss state-load auth/zhipin-auth.json
 playwright-cli -s=boss goto "https://www.zhipin.com/web/chat/index"
@@ -158,22 +152,13 @@ playwright-cli -s=boss snapshot
 #### 第三步A：自动沟通新候选人
 
 ```bash
-# 1. 点击聊天项进入对话
 playwright-cli -s=boss click <聊天项ref>
 sleep 2
-
-# 2. 获取快照，确认进入了对话
 playwright-cli -s=boss snapshot
-
-# 3. 优先尝试点击输入区域后直接 type
 playwright-cli -s=boss click <输入区域ref>
 playwright-cli -s=boss type "您好，感谢您对这个岗位的关注！方便发一份您的简历过来吗？"
-
-# 4. 点击发送按钮
 playwright-cli -s=boss click <发送按钮ref>
 sleep 1
-
-# 5. 获取新快照，点击“求简历”按钮
 playwright-cli -s=boss snapshot
 playwright-cli -s=boss click <求简历按钮ref>
 sleep 1
@@ -191,32 +176,17 @@ sleep 1
 #### 第三步B：下载已收到的简历
 
 ```bash
-# 1. 点击聊天项进入对话
 playwright-cli -s=boss click <聊天项ref>
 sleep 2
-
-# 2. 获取快照，找到“点击预览附件简历”按钮
 playwright-cli -s=boss snapshot
-
-# 3. 点击预览按钮
 playwright-cli -s=boss click <"点击预览附件简历"的ref>
 sleep 3
-
-# 4. 获取快照，找到下载按钮
 playwright-cli -s=boss snapshot
-
-# 5. 点击下载按钮
 playwright-cli -s=boss click <下载图标ref>
 sleep 2
-
-# 6. 检查网络日志确认下载完成，获取文件名
 playwright-cli -s=boss network
-
-# 7. 创建职位文件夹并移动文件
 mkdir -p "output/<职位名>"
 mv ".playwright-cli/<下载的文件名>.pdf" "output/<职位名>/<候选人姓名>.pdf"
-
-# 8. 关闭预览
 playwright-cli -s=boss press Escape
 sleep 1
 ```
@@ -235,7 +205,6 @@ sleep 1
 每处理完一个候选人，立即用 Node.js 更新 `processed.json`：
 
 ```bash
-# 标记为已发消息
 node -e "
 const fs = require('fs');
 const f = 'processed.json';
@@ -246,7 +215,6 @@ fs.writeFileSync(f, JSON.stringify(d, null, 2));
 console.log('Updated:', key, '-> messaged');
 "
 
-# 标记为已下载
 node -e "
 const fs = require('fs');
 const f = 'processed.json';

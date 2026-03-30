@@ -1,0 +1,4 @@
+interface:
+  display_name: "Boss Zhipin"
+  short_description: "Manage jobs, candidate outreach, and resume downloads on Boss Zhipin"
+  default_prompt: "Use $boss-zhipin to manage Boss Zhipin recruiting conversations, request resumes from new candidates, and download received resume attachments into organized folders."
