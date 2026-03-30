@@ -1,17 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node playwright-cli/playwright-cli.js:*)",
+      "Bash(playwright-cli:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(cp:*)",
       "Bash(ls:*)",
       "Bash(sleep:*)",
       "Bash(cat:*)",
-      "Bash(npm:*)",
-      "Bash(gh repo:*)",
-      "Bash(mkdir -p /tmp/skills-repo/boss-zhipin-skill)",
-      "Bash(cp -r .claude CLAUDE.md .gitignore skills /tmp/skills-repo/boss-zhipin-skill/)"
+      "Bash(node:*)"
     ]
   }
 }
