@@ -1,0 +1,7 @@
+auth/
+output/
+.playwright-cli/
+node_modules/
+*.png
+processed.json
+.DS_Store
